@@ -1,0 +1,17 @@
+
+Start
+    Read line
+    If .macro
+	Add macro
+	    name
+	    arguments
+	    text
+		arg substitution
+	    repeat until .endmacro
+    else
+	If opcode in macro table
+	    expand
+		recursively check macro table for each instruction
+	else
+	    output line unaltered
+

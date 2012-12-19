@@ -1,0 +1,87 @@
+.TH PAPP 1   \" Put title and section here, e.g. APE 1
+.SH NAME    \" Section header
+.PP
+PAPP - Portable Assembly Preprocessor
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+papp [source file]
+.ad
+.fi
+.SH "DESCRIPTION"
+The \fBpapp\fR command preprocesses assembly language code, much like
+\fBcpp\fR does for C and C++.
+.PP
+.B Papp
+parses assembly language programs line-by-line, processing macro
+definitions, macro references, and includes.  Output is sent to the
+standard output.
+.PP
+\fBPapp\fR can be used with any assembler, but was specifically designed
+to enhance the programming experience with the SPIM MIPS simulator, and
+follows a syntax taken from MIPS assembly language documentation.
+.PP
+Macro definitions take the following general form:
+.PP
+.nf
+.na
+    .macro name($arg1[,$arg2...])
+    Macro text
+    .end_macro
+.ad
+.fi
+.PP
+Argument names must begin with a $, and should use standard variable naming
+conventions that do not conflict with any tokens in the assembly language
+being preprocessed.  References to arguments within the macro text are
+replaced by the text from the macro invocation.
+.PP
+MIPS assembly language (MAL) example:
+.PP
+.nf
+.na
+    .macro push($x)
+    sw      $x, ($sp)
+    addi    $sp, $sp, -4
+    .end_macro
+    
+    .macro swap($r1,$r2,$temp)
+    move    $temp, $r1
+    move    $r1, $r2
+    move    $r2, $temp
+    .end_macro
+.ad
+.fi
+.PP
+Macros are invoked using parentheses surrounding the argument:
+.PP
+.nf
+.na
+    lw      $t0, x
+    push($t0)
+    swap($a0, $a1, $t1)
+.ad
+.fi
+.PP
+Files can be included using the \fB.include\fR directive.  This is
+especially useful for storing commonly used predefined constants and
+macros in a separate file for inclusion in other programs.  For example,
+if the macro examples above are stored in a file called \fBmymacros.mal\fR,
+then the following could be used to import them to another program
+(in the same directory):
+.PP
+.nf
+.na
+    .include("mymacros.mal")
+.ad
+.fi
+.PP
+.SH "SEE ALSO"
+cpp(1), as(1), spim(1), ape(1)
+.SH AUTHOR
+.nf
+.na
+Jason W. Bacon
+Acadix Consulting, LLC
+

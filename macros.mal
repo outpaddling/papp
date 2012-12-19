@@ -1,0 +1,36 @@
+#########################################################################
+#   Description:
+#   Author:
+#   Date:
+#########################################################################
+
+	.macro  push($x)
+	sw      $x, 0($sp)
+	addi    $sp, $sp, -4
+	.end_macro
+
+	.macro  pop($x)
+	addi    $sp, $sp, 4
+	lw      $x, 0($sp)
+	.end_macro
+
+	.macro  putint($var)
+	li      $v0, 1
+	lw      $a0, $var
+	syscall
+	.end_macro
+	
+	.macro  putchar($var)
+	push($v0)
+	li      $v0, 11
+	lw      $a0, $var
+	syscall
+	pop($v0)
+	.end_macro
+
+	.macro  newline()
+	li      $v0, 11
+	lw      $a0, 10
+	syscall
+	.end_macro
+	

@@ -1,0 +1,32 @@
+#########################################################################
+# Exception handling
+#########################################################################
+
+# Status register bits
+EXC_ENABLE_MASK:        .word   0x00000001
+
+# Cause register bits
+EXC_CODE_MASK:          .word   0x0000003c  # Exception code bits
+
+EXC_CODE_INTERRUPT:     .word   0   # External interrupt
+EXC_CODE_ADDR_LOAD:     .word   4   # Address error on load
+EXC_CODE_ADDR_STORE:    .word   5   # Address error on store
+EXC_CODE_IBUS:          .word   6   # Bus error instruction fetch
+EXC_CODE_DBUS:          .word   7   # Bus error on load or store
+EXC_CODE_SYSCALL:       .word   8   # System call
+EXC_CODE_BREAKPOINT:    .word   9   # Break point
+EXC_CODE_RESERVED:      .word   10  # Reserved instruction code
+EXC_CODE_OVERFLOW:      .word   12  # Arithmetic overflow
+
+# Status and cause register bits
+EXC_INT_ALL_MASK:       .word   0x0000ff00  # Interrupt level enable bits
+
+EXC_INT0_MASK:          .word   0x00000100  # Software
+EXC_INT1_MASK:          .word   0x00000200  # Software
+EXC_INT2_MASK:          .word   0x00000400  # Display
+EXC_INT3_MASK:          .word   0x00000800  # Keyboard
+EXC_INT4_MASK:          .word   0x00001000
+EXC_INT5_MASK:          .word   0x00002000  # Timer
+EXC_INT6_MASK:          .word   0x00004000
+EXC_INT7_MASK:          .word   0x00008000
+

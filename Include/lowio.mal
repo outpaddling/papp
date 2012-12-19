@@ -1,0 +1,36 @@
+#########################################################################
+# Memory mapped I/O
+# Do not mix with I/O syscalls!
+#########################################################################
+
+#########################################################################
+# Receiver control.  1 in bit 0 means new char has arrived.  This bit
+# is read-only, and resets to 0 when CONS_RECEIVER_DATA is read.
+# 1 in bit 1 enables hardware interrupt at interrupt level 1.
+# Interrupts must also be enabled in the coprocessor 0 status register.
+
+CONS_RECEIVER_CONTROL:          .word   0xffff0000
+CONS_RECEIVER_READY_MASK:       .word   0x00000001
+CONS_RECEIVER_INT_ENABLE_MASK:  .word   0x00000002
+
+CONS_RECEIVER_DATA:             .word   0xffff0004
+CONS_RECEIVER_DATA_MASK:        .word   0x000000ff
+CONS_RECEIVER_INT_LEVEL:        .word   1
+
+#########################################################################
+# Transmitter control.  1 in bit 0 means ready for next char.  This bit
+# is read-only, and is set to 0 when data is written to 
+# CONS_TRANSMIT_DATA.  It resets to one after the console finishes
+# displaying the character.  CONS_TRANSMIT_DATA should not be written
+# to when this bit is 0.
+# A 1 in bit 1 enables hardware interrupt at interrupt level 1.
+# Interrupts must also be enabled in the coprocessor 0 status register.
+
+CONS_TRANSMIT_CONTROL:          .word   0xffff0008
+CONS_TRANSMIT_READY_MASK:       .word   0x00000001
+CONS_TRANSMIT_INT_ENABLE_MASK:  .word   0x00000002
+
+CONS_TRANSMIT_DATA:             .word   0xffff000c
+CONS_TRANSMIT_DATA_MASK:        .word   0x000000ff
+CONS_TRANSMIT_INT_LEVEL:        .word   0
+
