@@ -1,0 +1,33 @@
+#########################################################################
+#   Description:
+#   Author:
+#   Date:
+#########################################################################
+
+	.include    "acros.mal"
+
+#########################################################################
+#   Main program
+#########################################################################
+
+# Variables for main
+	.data
+x:      .word   10
+newline:.byte   10
+
+# Main body
+	.text
+main:
+	# Push stack frame
+	push($ra)
+
+	putint(x)
+	putchar(newline)
+	newline()
+	
+	# Pop stack frame
+	pop($ra)
+	
+	# Return to system
+	jr      $ra
+

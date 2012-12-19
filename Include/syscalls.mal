@@ -1,0 +1,141 @@
+#########################################################################
+#   System call constants
+#########################################################################
+
+		    .data
+		    
+# syscall opcodes (for $v0)
+SYS_PRINT_INT:      .word   1
+SYS_PRINT_FLOAT:    .word   2
+SYS_PRINT_DOUBLE:   .word   3
+SYS_PRINT_STRING:   .word   4
+SYS_READ_INT:       .word   5
+SYS_READ_FLOAT:     .word   6
+SYS_READ_DOUBLE:    .word   7
+SYS_READ_STRING:    .word   8
+SYS_SBRK:           .word   9
+SYS_EXIT:           .word   10
+SYS_PRINT_CHAR:     .word   11
+SYS_READ_CHAR:      .word   12
+
+#########################################################################
+#   System call macros
+#########################################################################
+
+#########################################################################
+#   I/O with variables
+#########################################################################
+
+	# Input a word in decimal to a variable
+	.macro  read_int_var($variable)
+	push($v0)
+	
+	lw      $v0, SYS_READ_INT
+	syscall
+	sw      $v0, $variable
+	
+	pop($v0)
+	.end_macro
+	
+	# Print contents of a word variable in decimal
+	.macro  print_int_var($variable)
+	push($a0)
+	push($v0)
+	
+	lw      $a0, $variable
+	lw      $v0, SYS_PRINT_INT
+	syscall
+	
+	pop($v0)
+	pop($a0)
+	.end_macro
+	
+	# Input a character to a variable
+	.macro  read_char_var($variable)
+	push($v0)
+	
+	lw      $v0, SYS_READ_CHAR
+	syscall
+	sb      $v0, $variable
+	
+	pop($v0)
+	.end_macro
+	
+	# Print contents of a character variable
+	.macro  print_char_var($variable)
+	push($a0)
+	push($v0)
+	
+	lbu     $a0, $variable
+	lw      $v0, SYS_PRINT_CHAR
+	syscall
+	
+	pop($v0)
+	pop($a0)
+	.end_macro
+
+	# Print contents of a string
+	.macro  print_string_var($variable)
+	push($a0)
+	push($v0)
+	
+	la      $a0, $variable
+	lw      $v0, SYS_PRINT_STRING
+	syscall
+	
+	pop($v0)
+	pop($a0)
+	.end_macro
+
+#########################################################################
+#   I/O with registers
+#########################################################################
+
+	# Input a word in decimal to a register
+	.macro  read_int_reg($register)
+	push($v0)
+	
+	lw      $v0, SYS_READ_INT
+	syscall
+	move    $register, $v0
+	
+	pop($v0)
+	.end_macro
+	
+	# Print contents of a word register in decimal
+	.macro  print_int_reg($register)
+	push($a0)
+	push($v0)
+	
+	move    $a0, $register
+	lw      $v0, SYS_PRINT_INT
+	syscall
+	
+	pop($v0)
+	pop($a0)
+	.end_macro
+	
+	# Input a character to a register
+	.macro  read_char_reg($register)
+	push($v0)
+	
+	lw      $v0, SYS_READ_CHAR
+	syscall
+	move    $register, $v0
+	
+	pop($v0)
+	.end_macro
+	
+	# Print contents of a character register
+	.macro  print_char_reg($register)
+	push($a0)
+	push($v0)
+	
+	move    $a0, $register
+	lw      $v0, SYS_PRINT_CHAR
+	syscall
+	
+	pop($v0)
+	pop($a0)
+	.end_macro
+

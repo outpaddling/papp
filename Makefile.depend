@@ -1,0 +1,19 @@
+error.o: error.cc source_file.h
+	${CXX} -c ${CXXFLAGS} error.cc
+
+macro.o: macro.cc source_file.h macro.h statement.h papp.h error.h
+	${CXX} -c ${CXXFLAGS} macro.cc
+
+mactable.o: mactable.cc source_file.h mactable.h macro.h
+	${CXX} -c ${CXXFLAGS} mactable.cc
+
+papp.o: papp.cc source_file.h mactable.h macro.h statement.h papp.h \
+  error.h
+	${CXX} -c ${CXXFLAGS} papp.cc
+
+source_file.o: source_file.cc source_file.h
+	${CXX} -c ${CXXFLAGS} source_file.cc
+
+statement.o: statement.cc source_file.h statement.h error.h
+	${CXX} -c ${CXXFLAGS} statement.cc
+
