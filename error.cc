@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sysexits.h>
+#include <cstdlib>
 
 using namespace std;
 
