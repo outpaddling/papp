@@ -146,10 +146,12 @@ realclean: clean
 # Install all target files (binaries, libraries, docs, etc.)
 
 install: all
-	${MKDIR} -p ${PREFIX}/bin ${PREFIX}/man/man1 ${DATADIR}/include
-	${INSTALL} -s -m 0555 ${BIN} ${PREFIX}/bin
-	${INSTALL} -m 0444 ${MAN} ${MANPREFIX}/man/man1
-	${CP} -R Include/* ${DATADIR}/include
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/bin \
+	    ${STAGEDIR}${PREFIX}/man/man1 \
+	    ${STAGEDIR}${DATADIR}/include
+	${INSTALL} -s -m 0555 ${BIN} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL} -m 0444 ${MAN} ${STAGEDIR}${MANPREFIX}/man/man1
+	${CP} -R Include/* ${STAGEDIR}${DATADIR}/include
 
 ############################################################################
 # Remove all installed files
