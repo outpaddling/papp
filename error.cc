@@ -10,7 +10,7 @@ using namespace std;
 void    errorMsg(source_file *source, const char *msg)
 
 {
-    cerr << "Syntax error: " << source->get_filename() << 
+    cerr << source->get_filename() << 
 	", line " << source->get_line_num() << ": " << msg;
 }
 
