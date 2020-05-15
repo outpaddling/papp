@@ -5,7 +5,10 @@
 #include <vector>
 #include <sysexits.h>   // Standardized exit codes EX_OK, EX_USAGE, etc.
 #include <sys/stat.h>
+#include <unistd.h>
 #include <cerrno>
+#include <cstring>
+#include <cstdlib>
 
 using namespace std;
 

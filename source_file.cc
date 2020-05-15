@@ -12,6 +12,8 @@
 #include <iostream>     // cin, cout, cerr
 #include <fstream>
 #include <sysexits.h>   // Standardized exit codes EX_OK, EX_USAGE, etc.
+#include <cstring>
+#include <cstdlib>
 
 using namespace std;
 
