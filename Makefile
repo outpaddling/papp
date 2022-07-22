@@ -62,13 +62,14 @@ OBJS    = papp.o source_file.o macro.o mactable.o statement.o error.o
 
 # Install in /usr/local, unless defined by the parent Makefile, the
 # environment, or a command line option such as PREFIX=/opt/local.
-PREFIX      ?= /usr/local
+PREFIX      ?= ../local
 MANPREFIX   ?= ${PREFIX}
+MANDIR      ?= ${MANPREFIX}/man
 DATADIR     ?= ${PREFIX}/share/papp
 
 # Where to find local libraries and headers.  For MacPorts, override
 # with "make LOCALBASE=/opt/local"
-LOCALBASE   ?= ${PREFIX}
+LOCALBASE   ?= /usr/local
 
 ############################################################################
 # Build flags
@@ -146,21 +147,12 @@ realclean: clean
 # Install all target files (binaries, libraries, docs, etc.)
 
 install: all
-	${MKDIR} -p ${STAGEDIR}${PREFIX}/bin \
-	    ${STAGEDIR}${PREFIX}/man/man1 \
-	    ${STAGEDIR}${DATADIR}/include
-	${INSTALL} -s -m 0555 ${BIN} ${STAGEDIR}${PREFIX}/bin
-	${INSTALL} -m 0444 ${MAN} ${STAGEDIR}${MANPREFIX}/man/man1
-	${CP} -R Include/* ${STAGEDIR}${DATADIR}/include
-
-############################################################################
-# Remove all installed files
-
-uninstall:
-	${RM} ${PREFIX}/bin/${BIN}
-	${RM} ${MANPREFIX}/man/man1/${MAN}
-	${RM} ${DATADIR}/include
+	${MKDIR} -p ${DESTDIR}${PREFIX}/bin \
+	    ${DESTDIR}${PREFIX}/man/man1 \
+	    ${DESTDIR}${DATADIR}/include
+	${INSTALL} -s -m 0555 ${BIN} ${DESTDIR}${PREFIX}/bin
+	${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man1
+	${CP} -R Include/* ${DESTDIR}${DATADIR}/include
 
 test:
 	${BIN} < main.tal
-
