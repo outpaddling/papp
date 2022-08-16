@@ -246,7 +246,7 @@ string  getPath(source_file *source, const string &argString)
     }
     if ( stat(pathName.c_str(), &st) != 0 )
     {
-	pathName = string(PREFIX) + string("/share/epc/include/") + fileName;
+	pathName = string(PREFIX) + string("/share/EPC/include/") + fileName;
     }
     return pathName;
 }
