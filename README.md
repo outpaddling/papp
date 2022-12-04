@@ -162,7 +162,7 @@ Community support for pkgsrc is available through the
 
 ### Building papp locally
 
-Below are cave man install instructions for development purposes, not
+Below are caveman install instructions for development purposes, not
 recommended for regular use.
 
 1. Clone papp and dependencies into sibling directories
