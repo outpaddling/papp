@@ -139,18 +139,25 @@ int     preprocess(source_file *source, ostream *outfile)
 		macPtr = macroTable.find(st.get_opcode());
 		if ( macPtr != NULL )
 		{
-		    char    macro_filename[L_tmpnam+1];
+		    char    macro_filename[L_tmpnam+1] = "/tmp/pappXXXXX";
+		    int     fd;
 		    static int  files = 0;
 		    
 		    // Create a temp file for the macro
-		    tmpnam(macro_filename);
+		    // Deprecated: tmpnam(macro_filename);
+		    if ( (fd = mkstemp(macro_filename)) == -1 )
+		    {
+			cerr << "Error opening temp file " << macro_filename << '\n';
+			exit(EX_CANTCREAT);
+		    }
 		    ofstream macroFile(macro_filename);
+		    close(fd);
 		    if ( macroFile.fail() )
 		    {
 			cerr << "Could not open temp file: " << macro_filename << ": "
 			    << strerror(errno) << '\n';
 			unlink(macro_filename);
-			exit(EX_UNAVAILABLE);
+			exit(EX_CANTCREAT);
 		    }
 		    ++files;
 		    if ( Debug )
