@@ -148,11 +148,11 @@ realclean: clean
 
 install: all
 	${MKDIR} -p ${DESTDIR}${PREFIX}/bin \
-	    ${DESTDIR}${PREFIX}/man/man1 \
-	    ${DESTDIR}${DATADIR}/include
+		    ${DESTDIR}${DATADIR}/include \
+		    ${DESTDIR}${MANPREFIX}/man/man1
 	${INSTALL} -s -m 0555 ${BIN} ${DESTDIR}${PREFIX}/bin
-	${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man1
 	${CP} -R Include/* ${DESTDIR}${DATADIR}/include
+	${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man1
 
 test:
 	${BIN} < main.tal
